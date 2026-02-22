@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>WHATSAPP HACK · TOOL</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0b1419;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+    }
+
+    /* android-like app container */
+    .android-app {
+      max-width: 380px;
+      width: 100%;
+      background: #1f2c33;
+      border-radius: 32px 32px 28px 28px;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* status bar mock */
+    .status-bar {
+      background: #1a262d;
+      padding: 12px 18px 6px;
+      display: flex;
+      justify-content: space-between;
+      color: #d1d7db;
+      font-size: 14px;
+      font-weight: 500;
+      border-bottom: 1px solid #2a3b45;
+    }
+
+    .status-bar .time {
+      font-weight: 600;
+    }
+
+    /* header with whatsapp branding */
+    .app-header {
+      display: flex;
+      align-items: center;
+      padding: 16px 20px;
+      background: #1f2c33;
+      border-bottom: 1px solid #2d3f4a;
+    }
+
+    .whatsapp-logo {
+      width: 32px;
+      height: 32px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 14px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    .whatsapp-logo svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+    }
+
+    .header-text {
+      flex: 1;
+    }
+
+    .header-text h1 {
+      color: #e9edef;
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .header-text .badge {
+      background: #25D366;
+      color: #0b1419;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 10px;
+      border-radius: 30px;
+      display: inline-block;
+      margin-top: 4px;
+      text-transform: uppercase;
+    }
+
+    /* main content */
+    .content-card {
+      padding: 20px 18px 28px;
+      background: #0f1a20;
+      border-radius: 28px 28px 0 0;
+      margin-top: 0px;
+    }
+
+    /* input group — now editable */
+    .input-field {
+      background: #233138;
+      border-radius: 14px;
+      border: 1px solid #314b53;
+      padding: 4px 18px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 24px;
+      transition: border 0.1s;
+    }
+
+    .input-field:focus-within {
+      border-color: #25D366;
+      box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.2);
+    }
+
+    .input-field .prefix {
+      color: #8797a1;
+      font-size: 16px;
+      font-weight: 500;
+      margin-right: 6px;
+    }
+
+    .input-field input {
+      background: transparent;
+      border: none;
+      padding: 14px 0;
+      color: #e9edef;
+      font-size: 16px;
+      width: 100%;
+      outline: none;
+    }
+
+    .input-field input::placeholder {
+      color: #5f7c8a;
+      font-weight: 400;
+    }
+
+    /* primary hack button */
+    .btn-primary {
+      background: #25D366;
+      color: #0f1a20;
+      font-weight: 700;
+      font-size: 18px;
+      padding: 16px 20px;
+      border: none;
+      border-radius: 50px;
+      width: 100%;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 6px 0 #128C7E, 0 8px 18px rgba(0,0,0,0.6);
+      transition: 0.08s linear;
+      cursor: pointer;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary:active {
+      transform: translateY(5px);
+      box-shadow: 0 2px 0 #128C7E, 0 8px 18px rgba(0,0,0,0.5);
+    }
+
+    /* hacking animation container */
+    .hack-animation {
+      background: #0d191f;
+      border-radius: 24px;
+      padding: 20px 16px;
+      margin: 18px 0 8px;
+      border: 1px solid #25D36630;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hack-animation.active {
+      display: flex;
+    }
+
+    .glitch-line {
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, #25D366, #f0f, #25D366, transparent);
+      background-size: 200% 100%;
+      animation: scan 1.2s infinite linear;
+      border-radius: 4px;
+      margin: 5px 0;
+      filter: drop-shadow(0 0 6px #25D366);
+    }
+
+    @keyframes scan {
+      0% { background-position: 100% 0; }
+      100% { background-position: -100% 0; }
+    }
+
+    .matrix-text {
+      font-family: 'Courier New', monospace;
+      color: #25D366;
+      text-shadow: 0 0 5px #25D366;
+      font-size: 14px;
+      margin: 8px 0;
+      text-align: center;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #1e2e36;
+      border-radius: 20px;
+      margin: 12px 0 8px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #25D366, #a0f, #25D366);
+      animation: fillProgress 2.4s ease-out forwards;
+    }
+
+    @keyframes fillProgress {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+
+    /* view button (appears after hack) */
+    .view-btn {
+      background: #2b4b57;
+      color: white;
+      border: none;
+      border-radius: 40px;
+      padding: 16px;
+      font-size: 18px;
+      font-weight: 600;
+      width: 100%;
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 3px 0 #0f2d35;
+      transition: 0.05s linear;
+    }
+
+    .view-btn.hidden {
+      display: none;
+    }
+
+    .view-btn:active {
+      transform: translateY(3px);
+      box-shadow: none;
+    }
+
+    /* password section */
+    .password-section {
+      background: #0d1a20;
+      border-radius: 20px;
+      padding: 12px 16px 16px;
+      margin: 16px 0 10px;
+      border: 1px solid #2d4b55;
+      display: none;
+    }
+
+    .password-section.visible {
+      display: block;
+    }
+
+    .password-label {
+      color: #b3c3cb;
+      font-size: 14px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .password-field {
+      background: #1e2d36;
+      border-radius: 40px;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      border: 1px solid #3f5b66;
+    }
+
+    .password-field input {
+      background: transparent;
+      border: none;
+      padding: 14px 0;
+      color: white;
+      width: 100%;
+      outline: none;
+      font-size: 15px;
+    }
+
+    .password-field button {
+      background: transparent;
+      border: none;
+      color: #25D366;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 8px 0 8px 12px;
+      cursor: pointer;
+    }
+
+    .get-password-btn {
+      background: #1e404b;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 50px;
+      width: 100%;
+      font-weight: 600;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 16px 0 6px;
+      cursor: pointer;
+      box-shadow: 0 3px 0 #0d262e;
+      transition: 0.06s linear;
+    }
+
+    .get-password-btn:active {
+      transform: translateY(3px);
+      box-shadow: none;
+    }
+
+    .result-message {
+      background: #1f2c33;
+      padding: 20px;
+      border-radius: 30px;
+      text-align: center;
+      font-size: 42px;
+      line-height: 1.3;
+      color: #ffb7b7;
+      border: 2px solid #ff6060;
+      box-shadow: 0 0 30px #ff000040;
+      margin-top: 20px;
+      display: none;
+    }
+
+    .result-message.show {
+      display: block;
+    }
+
+    .small-note {
+      color: #5e7d8a;
+      font-size: 12px;
+      text-align: center;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+<body>
+<div class="android-app">
+  <!-- mock android status bar -->
+  <div class="status-bar">
+    <span class="time">10:28</span>
+    <span class="icons">📶 🔋 92%</span>
+  </div>
+
+  <!-- header with whatsapp logo -->
+  <div class="app-header">
+    <div class="whatsapp-logo">
+      <svg viewBox="0 0 24 24">
+        <path d="M19.077 4.928C17.191 3.041 14.683 2 12.006 2 6.798 2 2.548 6.193 2.54 11.393c-.003 1.747.456 3.457 1.328 4.985L2.25 21.75l5.4-1.566c1.5.823 3.19 1.259 4.926 1.261h.004c5.19 0 9.453-4.195 9.461-9.396.004-2.51-.974-4.87-2.864-6.761zM12.02 20.026h-.003c-1.53-.001-3.032-.414-4.343-1.194l-.312-.186-3.323.965.992-3.212-.203-.329a8.882 8.882 0 0 1-1.382-4.84c.007-4.889 3.986-8.866 8.886-8.866 2.369 0 4.598.925 6.273 2.605 1.675 1.68 2.598 3.91 2.595 6.28-.008 4.885-3.985 8.857-8.88 8.857z"></path>
+        <path d="M16.5 13.338c-.268-.134-1.582-.776-1.827-.865-.245-.089-.423-.134-.601.134-.178.268-.69.865-.846 1.042-.156.178-.312.2-.58.067-.93-.46-1.666-1.03-2.321-1.713-.174-.183-.312-.366-.467-.561.213-.207.397-.443.547-.699.123-.223.164-.402.082-.62-.082-.223-.73-1.757-1-2.408-.263-.642-.53-.547-.73-.558l-.62-.011c-.178 0-.468.067-.712.335-.245.268-.934.91-.934 2.222 0 1.312.955 2.58 1.088 2.76.134.178 1.833 2.844 4.52 3.87 2.688 1.027 2.688.685 3.172.642.484-.045 1.563-.634 1.783-1.246.223-.613.223-1.138.156-1.246-.067-.112-.245-.178-.513-.313z"></path>
+      </svg>
+    </div>
+    <div class="header-text">
+      <h1>WhatsApp Hack <span style="font-weight:300; font-size:14px; color:#8797a1;">v2.3</span></h1>
+      <div class="badge">TOOL · 18+</div>
+    </div>
+  </div>
+
+  <div class="content-card">
+    <!-- phone input - now fully editable, no prefix restriction, placeholder shows format -->
+    <div class="input-field">
+      <!-- simple +255 hint but user can type anything -->
+      <span class="prefix" style="opacity:0.7;">📱</span>
+      <input type="text" id="phoneInput" placeholder="+255 663 524 731 au namba yako" value="+255 663 524 731">
+    </div>
+
+    <!-- HACK BUTTON -->
+    <button class="btn-primary" id="hackBtn">
+      <span>⚡</span> HACK NOW <span>⚡</span>
+    </button>
+
+    <!-- hacking animation container -->
+    <div id="hackAnimation" class="hack-animation">
+      <div class="glitch-line"></div>
+      <div class="matrix-text">[ bypassing security: 0x" + Math.random().toString(16).substring(2,6) + " ]</div>
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+      <div class="matrix-text">🔥 injecting exploit ...</div>
+      <div class="glitch-line" style="animation-delay:0.3s"></div>
+    </div>
+
+    <!-- VIEW button (hidden initially) -->
+    <button class="view-btn hidden" id="viewBtn">
+      <span>🔓</span> VIEW CREDENTIALS <span>🔓</span>
+    </button>
+
+    <!-- PASSWORD SECTION (hidden until view clicked) -->
+    <div id="passwordSection" class="password-section">
+      <div class="password-label">
+        <span>🔐</span> ENTER MASTER PASSWORD
+      </div>
+      <div class="password-field">
+        <input type="text" id="passwordInput" placeholder="•••••••••••••">
+        <button id="unlockBtn">UNLOCK</button>
+      </div>
+
+      <!-- get password button (whatsapp redirect) -->
+      <button class="get-password-btn" id="getPasswordBtn">
+        <span>📲</span> GET PASSWORD (30k Tsh) <span>📲</span>
+      </button>
+      <div class="small-note">*Bonyeza, utumwe ujumbe wa password: <strong>DarkX-Official</strong></div>
+    </div>
+
+    <!-- final result with emojis -->
+    <div id="resultBox" class="result-message">
+      😂😂😂😂😂😂😂<br>You lose again!
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // DOM elements
+    const hackBtn = document.getElementById('hackBtn');
+    const hackAnimation = document.getElementById('hackAnimation');
+    const viewBtn = document.getElementById('viewBtn');
+    const passwordSection = document.getElementById('passwordSection');
+    const passwordInput = document.getElementById('passwordInput');
+    const unlockBtn = document.getElementById('unlockBtn');
+    const getPasswordBtn = document.getElementById('getPasswordBtn');
+    const resultBox = document.getElementById('resultBox');
+    const phoneInput = document.getElementById('phoneInput'); // fully editable
+
+    // correct password
+    const MASTER_PASS = "DarkX-Official";
+
+    // Step 1: HACK button → show animation, then view button
+    hackBtn.addEventListener('click', function() {
+      // Hide any previous panels
+      passwordSection.classList.remove('visible');
+      viewBtn.classList.add('hidden');
+      resultBox.classList.remove('show');
+      
+      // remove active class then re-add to restart animation
+      hackAnimation.classList.remove('active');
+      void hackAnimation.offsetWidth; // force reflow
+      hackAnimation.classList.add('active');
+
+      // After 2.4 seconds (duration of progress fill), hide animation and show VIEW button
+      setTimeout(() => {
+        hackAnimation.classList.remove('active');
+        viewBtn.classList.remove('hidden');
+      }, 2400);
+    });
+
+    // Step 2: VIEW button → hide view, show password section
+    viewBtn.addEventListener('click', function() {
+      viewBtn.classList.add('hidden');
+      passwordSection.classList.add('visible');
+      passwordInput.value = '';        // clear previous input
+      resultBox.classList.remove('show');
+    });
+
+    // Step 3: UNLOCK button → check password
+    unlockBtn.addEventListener('click', function() {
+      const entered = passwordInput.value.trim();
+      if (entered === MASTER_PASS) {
+        // correct password → show result, hide password section
+        resultBox.classList.add('show');
+        passwordSection.classList.remove('visible');
+      } else {
+        alert('Password si sahihi! jaribu "DarkX-Official" au bonyeza GET PASSWORD.');
+      }
+    });
+
+    // press Enter in password field
+    passwordInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        unlockBtn.click();
+      }
+    });
+
+    // Step 4: GET PASSWORD button → redirect to WhatsApp with custom message
+    getPasswordBtn.addEventListener('click', function() {
+      // fixed number as requested (255663524731) without spaces
+      const phone = "255663524731";
+      // optional: include the phone user entered? but spec says fixed.
+      const message = "Habari, nahitaji password ya hack WhatsApp (30k Tsh)";
+      const encodedMsg = encodeURIComponent(message);
+      const whatsappUrl = `https://wa.me/${phone}?text=${encodedMsg}`;
+      window.open(whatsappUrl, '_blank');
+
+      // also hint the password in placeholder to be user-friendly
+      passwordInput.placeholder = "password: DarkX-Official";
+    });
+
+    // bonus: allow user to type any number, no restrictions.
+    // phoneInput is completely free.
+  })();
+</script>
+</body>
+</html>
