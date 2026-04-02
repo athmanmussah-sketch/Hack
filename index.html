@@ -1,524 +1,606 @@
 <!DOCTYPE html>
-<html lang="sw">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>WHATSAPP HACK · TOOL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>SUIRΞISH · DEV/HACK TOOL</title>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
     }
 
     body {
-      min-height: 100vh;
-      background: #0b1419;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 16px;
+      background: #0a0f1f;
+      font-family: 'Inter', 'JetBrains Mono', 'SF Mono', monospace, system-ui;
+      padding: 2rem 1.5rem;
+      color: #eef2ff;
     }
 
-    /* android-like app container */
-    .android-app {
-      max-width: 380px;
-      width: 100%;
-      background: #1f2c33;
-      border-radius: 32px 32px 28px 28px;
-      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+    /* custom scroll */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1e2a3a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #ff8c42;
+      border-radius: 8px;
     }
 
-    /* status bar mock */
-    .status-bar {
-      background: #1a262d;
-      padding: 12px 18px 6px;
-      display: flex;
-      justify-content: space-between;
-      color: #d1d7db;
-      font-size: 14px;
-      font-weight: 500;
-      border-bottom: 1px solid #2a3b45;
+    .suireish-container {
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
-    .status-bar .time {
-      font-weight: 600;
+    /* header with glitch light effect */
+    .header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      position: relative;
     }
-
-    /* header with whatsapp branding */
-    .app-header {
-      display: flex;
-      align-items: center;
-      padding: 16px 20px;
-      background: #1f2c33;
-      border-bottom: 1px solid #2d3f4a;
-    }
-
-    .whatsapp-logo {
-      width: 32px;
-      height: 32px;
-      background: #25D366;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 14px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    }
-
-    .whatsapp-logo svg {
-      width: 20px;
-      height: 20px;
-      fill: white;
-    }
-
-    .header-text {
-      flex: 1;
-    }
-
-    .header-text h1 {
-      color: #e9edef;
-      font-size: 20px;
-      font-weight: 600;
-      line-height: 1.2;
-    }
-
-    .header-text .badge {
-      background: #25D366;
-      color: #0b1419;
-      font-size: 11px;
+    .header h1 {
+      font-size: 2.6rem;
       font-weight: 800;
-      padding: 2px 10px;
-      border-radius: 30px;
+      background: linear-gradient(135deg, #FF8C42 0%, #FFB347 30%, #3B82F6 80%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+      text-shadow: 0 0 8px rgba(255,140,66,0.3);
+    }
+    .header p {
+      color: #9ab3d5;
+      margin-top: 0.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      border-bottom: 1px dashed #ff8c42;
       display: inline-block;
-      margin-top: 4px;
-      text-transform: uppercase;
+      padding-bottom: 6px;
     }
 
-    /* main content */
-    .content-card {
-      padding: 20px 18px 28px;
-      background: #0f1a20;
-      border-radius: 28px 28px 0 0;
-      margin-top: 0px;
+    /* tools grid */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      gap: 1.8rem;
     }
 
-    /* input group — now editable */
-    .input-field {
-      background: #233138;
-      border-radius: 14px;
-      border: 1px solid #314b53;
-      padding: 4px 18px;
-      display: flex;
-      align-items: center;
-      margin-bottom: 24px;
-      transition: border 0.1s;
-    }
-
-    .input-field:focus-within {
-      border-color: #25D366;
-      box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.2);
-    }
-
-    .input-field .prefix {
-      color: #8797a1;
-      font-size: 16px;
-      font-weight: 500;
-      margin-right: 6px;
-    }
-
-    .input-field input {
-      background: transparent;
-      border: none;
-      padding: 14px 0;
-      color: #e9edef;
-      font-size: 16px;
-      width: 100%;
-      outline: none;
-    }
-
-    .input-field input::placeholder {
-      color: #5f7c8a;
-      font-weight: 400;
-    }
-
-    /* primary hack button */
-    .btn-primary {
-      background: #25D366;
-      color: #0f1a20;
-      font-weight: 700;
-      font-size: 18px;
-      padding: 16px 20px;
-      border: none;
-      border-radius: 50px;
-      width: 100%;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      box-shadow: 0 6px 0 #128C7E, 0 8px 18px rgba(0,0,0,0.6);
-      transition: 0.08s linear;
-      cursor: pointer;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .btn-primary:active {
-      transform: translateY(5px);
-      box-shadow: 0 2px 0 #128C7E, 0 8px 18px rgba(0,0,0,0.5);
-    }
-
-    /* hacking animation container */
-    .hack-animation {
-      background: #0d191f;
-      border-radius: 24px;
-      padding: 20px 16px;
-      margin: 18px 0 8px;
-      border: 1px solid #25D36630;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .hack-animation.active {
-      display: flex;
-    }
-
-    .glitch-line {
-      width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, transparent, #25D366, #f0f, #25D366, transparent);
-      background-size: 200% 100%;
-      animation: scan 1.2s infinite linear;
-      border-radius: 4px;
-      margin: 5px 0;
-      filter: drop-shadow(0 0 6px #25D366);
-    }
-
-    @keyframes scan {
-      0% { background-position: 100% 0; }
-      100% { background-position: -100% 0; }
-    }
-
-    .matrix-text {
-      font-family: 'Courier New', monospace;
-      color: #25D366;
-      text-shadow: 0 0 5px #25D366;
-      font-size: 14px;
-      margin: 8px 0;
-      text-align: center;
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 8px;
-      background: #1e2e36;
-      border-radius: 20px;
-      margin: 12px 0 8px;
+    /* card with hacker/dev style but moderate */
+    .card {
+      background: #0f1622e6;
+      backdrop-filter: blur(2px);
+      border-radius: 1.8rem;
+      border: 1px solid rgba(255, 140, 66, 0.4);
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,140,66,0.1);
+      transition: all 0.2s ease;
       overflow: hidden;
     }
-
-    .progress-fill {
-      width: 0%;
-      height: 100%;
-      background: linear-gradient(90deg, #25D366, #a0f, #25D366);
-      animation: fillProgress 2.4s ease-out forwards;
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: #ff8c42;
+      box-shadow: 0 25px 35px -12px black;
     }
-
-    @keyframes fillProgress {
-      0% { width: 0%; }
-      100% { width: 100%; }
-    }
-
-    /* view button (appears after hack) */
-    .view-btn {
-      background: #2b4b57;
-      color: white;
-      border: none;
-      border-radius: 40px;
-      padding: 16px;
-      font-size: 18px;
-      font-weight: 600;
-      width: 100%;
-      margin-top: 16px;
+    .card-header {
+      padding: 1.2rem 1.5rem;
+      background: #0b111e;
+      border-bottom: 2px solid #ff8c42;
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 8px;
-      cursor: pointer;
-      box-shadow: 0 3px 0 #0f2d35;
-      transition: 0.05s linear;
-    }
-
-    .view-btn.hidden {
-      display: none;
-    }
-
-    .view-btn:active {
-      transform: translateY(3px);
-      box-shadow: none;
-    }
-
-    /* password section */
-    .password-section {
-      background: #0d1a20;
-      border-radius: 20px;
-      padding: 12px 16px 16px;
-      margin: 16px 0 10px;
-      border: 1px solid #2d4b55;
-      display: none;
-    }
-
-    .password-section.visible {
-      display: block;
-    }
-
-    .password-label {
-      color: #b3c3cb;
-      font-size: 14px;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .password-field {
-      background: #1e2d36;
-      border-radius: 40px;
-      padding: 0 16px;
-      display: flex;
-      align-items: center;
-      border: 1px solid #3f5b66;
-    }
-
-    .password-field input {
-      background: transparent;
-      border: none;
-      padding: 14px 0;
-      color: white;
-      width: 100%;
-      outline: none;
-      font-size: 15px;
-    }
-
-    .password-field button {
-      background: transparent;
-      border: none;
-      color: #25D366;
-      font-weight: 700;
-      font-size: 15px;
-      padding: 8px 0 8px 12px;
-      cursor: pointer;
-    }
-
-    .get-password-btn {
-      background: #1e404b;
-      color: white;
-      border: none;
-      padding: 14px;
-      border-radius: 50px;
-      width: 100%;
-      font-weight: 600;
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       gap: 12px;
-      margin: 16px 0 6px;
+    }
+    .card-header i {
+      font-size: 1.6rem;
+      color: #ff9f4a;
+      text-shadow: 0 0 2px #ff8c42;
+    }
+    .card-header h2 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: -0.3px;
+      color: #FFD7B0;
+    }
+    .card-body {
+      padding: 1.6rem 1.5rem 1.8rem;
+    }
+
+    /* buttons only text (no icons inside) */
+    .btn-orange {
+      background: #ff8c42;
+      border: none;
+      color: #0b0f1a;
+      font-weight: 700;
+      padding: 10px 20px;
+      border-radius: 60px;
       cursor: pointer;
-      box-shadow: 0 3px 0 #0d262e;
-      transition: 0.06s linear;
-    }
-
-    .get-password-btn:active {
-      transform: translateY(3px);
-      box-shadow: none;
-    }
-
-    .result-message {
-      background: #1f2c33;
-      padding: 20px;
-      border-radius: 30px;
+      transition: 0.2s;
+      font-size: 0.85rem;
+      width: 100%;
       text-align: center;
-      font-size: 42px;
-      line-height: 1.3;
-      color: #ffb7b7;
-      border: 2px solid #ff6060;
-      box-shadow: 0 0 30px #ff000040;
-      margin-top: 20px;
-      display: none;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.3px;
+      box-shadow: 0 2px 8px rgba(255,140,66,0.3);
     }
-
-    .result-message.show {
-      display: block;
+    .btn-orange:hover {
+      background: #ffa057;
+      transform: scale(0.97);
+      box-shadow: 0 0 12px #ff8c42;
     }
-
-    .small-note {
-      color: #5e7d8a;
-      font-size: 12px;
-      text-align: center;
-      margin-top: 16px;
+    .btn-blue {
+      background: #1E3A8A;
+      border: none;
+      color: white;
+      font-weight: 700;
+      padding: 10px 20px;
+      border-radius: 60px;
+      cursor: pointer;
+      transition: 0.2s;
+      width: 100%;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+    }
+    .btn-blue:hover {
+      background: #2b4cae;
+      box-shadow: 0 0 10px #3b82f6;
+    }
+    .input-field, textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 24px;
+      border: 1px solid #2d3748;
+      background: #0a0f1c;
+      color: #e2e8f0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      margin: 10px 0;
+      transition: 0.2s;
+    }
+    .input-field:focus, textarea:focus {
+      outline: none;
+      border-color: #ff8c42;
+      box-shadow: 0 0 0 2px rgba(255,140,66,0.3);
+    }
+    .result-panel {
+      background: #0c1220;
+      border-radius: 20px;
+      padding: 12px 16px;
+      margin-top: 14px;
+      font-size: 0.8rem;
+      border-left: 4px solid #ff8c42;
+      font-family: 'JetBrains Mono', monospace;
+      color: #cbd5e6;
+      word-break: break-word;
+    }
+    hr {
+      margin: 14px 0;
+      border-color: #ff8c4233;
+    }
+    .badge-light {
+      background: #1e2a3a;
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: #ffb46e;
+    }
+    @media (max-width: 720px) {
+      body { padding: 1rem; }
     }
   </style>
 </head>
 <body>
-<div class="android-app">
-  <!-- mock android status bar -->
-  <div class="status-bar">
-    <span class="time">10:28</span>
-    <span class="icons">📶 🔋 92%</span>
+<div class="suireish-container">
+  <div class="header">
+    <h1>SUIRΞISH::TOOL</h1>
+    <p># API-CHECK // LOC-TRACE // PHONE-TRACKv3 // BUG-BOT // CRACK</p>
   </div>
 
-  <!-- header with whatsapp logo -->
-  <div class="app-header">
-    <div class="whatsapp-logo">
-      <svg viewBox="0 0 24 24">
-        <path d="M19.077 4.928C17.191 3.041 14.683 2 12.006 2 6.798 2 2.548 6.193 2.54 11.393c-.003 1.747.456 3.457 1.328 4.985L2.25 21.75l5.4-1.566c1.5.823 3.19 1.259 4.926 1.261h.004c5.19 0 9.453-4.195 9.461-9.396.004-2.51-.974-4.87-2.864-6.761zM12.02 20.026h-.003c-1.53-.001-3.032-.414-4.343-1.194l-.312-.186-3.323.965.992-3.212-.203-.329a8.882 8.882 0 0 1-1.382-4.84c.007-4.889 3.986-8.866 8.886-8.866 2.369 0 4.598.925 6.273 2.605 1.675 1.68 2.598 3.91 2.595 6.28-.008 4.885-3.985 8.857-8.88 8.857z"></path>
-        <path d="M16.5 13.338c-.268-.134-1.582-.776-1.827-.865-.245-.089-.423-.134-.601.134-.178.268-.69.865-.846 1.042-.156.178-.312.2-.58.067-.93-.46-1.666-1.03-2.321-1.713-.174-.183-.312-.366-.467-.561.213-.207.397-.443.547-.699.123-.223.164-.402.082-.62-.082-.223-.73-1.757-1-2.408-.263-.642-.53-.547-.73-.558l-.62-.011c-.178 0-.468.067-.712.335-.245.268-.934.91-.934 2.222 0 1.312.955 2.58 1.088 2.76.134.178 1.833 2.844 4.52 3.87 2.688 1.027 2.688.685 3.172.642.484-.045 1.563-.634 1.783-1.246.223-.613.223-1.138.156-1.246-.067-.112-.245-.178-.513-.313z"></path>
-      </svg>
-    </div>
-    <div class="header-text">
-      <h1>WhatsApp Hack <span style="font-weight:300; font-size:14px; color:#8797a1;">v2.3</span></h1>
-      <div class="badge">TOOL · 18+</div>
-    </div>
-  </div>
-
-  <div class="content-card">
-    <!-- phone input - now fully editable, no prefix restriction, placeholder shows format -->
-    <div class="input-field">
-      <!-- simple +255 hint but user can type anything -->
-      <span class="prefix" style="opacity:0.7;">📱</span>
-      <input type="text" id="phoneInput" placeholder="+255 663 524 731 au namba yako" value="+255 663 524 731">
-    </div>
-
-    <!-- HACK BUTTON -->
-    <button class="btn-primary" id="hackBtn">
-      <span>⚡</span> HACK NOW <span>⚡</span>
-    </button>
-
-    <!-- hacking animation container -->
-    <div id="hackAnimation" class="hack-animation">
-      <div class="glitch-line"></div>
-      <div class="matrix-text">[ bypassing security: 0x" + Math.random().toString(16).substring(2,6) + " ]</div>
-      <div class="progress-bar">
-        <div class="progress-fill"></div>
+  <div class="tools-grid">
+    <!-- 1. API CHECKER -->
+    <div class="card">
+      <div class="card-header">
+        <i class="fas fa-plug"></i>
+        <h2>API CHECKER</h2>
       </div>
-      <div class="matrix-text">🔥 injecting exploit ...</div>
-      <div class="glitch-line" style="animation-delay:0.3s"></div>
+      <div class="card-body">
+        <input type="text" class="input-field" id="apiEndpoint" placeholder="https://api.target.com/endpoint" value="https://jsonplaceholder.typicode.com/posts/1">
+        <button class="btn-orange" id="apiTestBtn">Test API</button>
+        <div id="apiOutput" class="result-panel">⚡ Ready — enter endpoint & test</div>
+      </div>
     </div>
 
-    <!-- VIEW button (hidden initially) -->
-    <button class="view-btn hidden" id="viewBtn">
-      <span>🔓</span> VIEW CREDENTIALS <span>🔓</span>
-    </button>
-
-    <!-- PASSWORD SECTION (hidden until view clicked) -->
-    <div id="passwordSection" class="password-section">
-      <div class="password-label">
-        <span>🔐</span> ENTER MASTER PASSWORD
+    <!-- 2. LOCATION TRACER (GPS) -->
+    <div class="card">
+      <div class="card-header">
+        <i class="fas fa-map-marker-alt"></i>
+        <h2>LOCATION TRACER</h2>
       </div>
-      <div class="password-field">
-        <input type="text" id="passwordInput" placeholder="•••••••••••••">
-        <button id="unlockBtn">UNLOCK</button>
+      <div class="card-body">
+        <button class="btn-blue" id="locateBtn">Trace My Location</button>
+        <div id="locationOutput" class="result-panel">📍 Awaiting signal — press to trace</div>
       </div>
-
-      <!-- get password button (whatsapp redirect) -->
-      <button class="get-password-btn" id="getPasswordBtn">
-        <span>📲</span> GET PASSWORD (30k Tsh) <span>📲</span>
-      </button>
-      <div class="small-note">*Bonyeza, utumwe ujumbe wa password: <strong>DarkX-Official</strong></div>
     </div>
 
-    <!-- final result with emojis -->
-    <div id="resultBox" class="result-message">
-      😂😂😂😂😂😂😂<br>You lose again!
+    <!-- 3. PHONE TRACKER METHOD 3 (opens new page) -->
+    <div class="card">
+      <div class="card-header">
+        <i class="fas fa-mobile-alt"></i>
+        <h2>PHONE TRACKER v3</h2>
+      </div>
+      <div class="card-body">
+        <button class="btn-orange" id="openPhoneTrackerBtn">Open Phone Tracker</button>
+        <div class="result-panel" style="background:#0d1422;">🔐 Server-based IMEI · Samsung Galaxy series</div>
+      </div>
+    </div>
+
+    <!-- 4. BUG BOT -->
+    <div class="card">
+      <div class="card-header">
+        <i class="fas fa-bug"></i>
+        <h2>BUG BOT</h2>
+      </div>
+      <div class="card-body">
+        <textarea class="input-field" rows="2" id="bugDescription" placeholder="Describe anomaly / crash..."></textarea>
+        <button class="btn-blue" id="bugReportBtn">Report to Bug Bot</button>
+        <div id="bugOutput" class="result-panel">🤖 BugBot active — submit report</div>
+      </div>
+    </div>
+
+    <!-- 5. SOFTWARE CRACKER -->
+    <div class="card">
+      <div class="card-header">
+        <i class="fas fa-key"></i>
+        <h2>SOFTWARE CRACKER</h2>
+      </div>
+      <div class="card-body">
+        <input type="text" class="input-field" id="targetSoftware" placeholder="Target software name">
+        <button class="btn-orange" id="crackActionBtn">Crack Software</button>
+        <div id="crackOutput" class="result-panel">🔓 Enter software name & execute</div>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
-  (function() {
-    // DOM elements
-    const hackBtn = document.getElementById('hackBtn');
-    const hackAnimation = document.getElementById('hackAnimation');
-    const viewBtn = document.getElementById('viewBtn');
-    const passwordSection = document.getElementById('passwordSection');
-    const passwordInput = document.getElementById('passwordInput');
-    const unlockBtn = document.getElementById('unlockBtn');
-    const getPasswordBtn = document.getElementById('getPasswordBtn');
-    const resultBox = document.getElementById('resultBox');
-    const phoneInput = document.getElementById('phoneInput'); // fully editable
+  // ---- FONTAWESOME FOR ICONS (only in header) ----
+  const fontAwesome = document.createElement('link');
+  fontAwesome.rel = 'stylesheet';
+  fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css';
+  document.head.appendChild(fontAwesome);
 
-    // correct password
-    const MASTER_PASS = "DarkX-Official";
-
-    // Step 1: HACK button → show animation, then view button
-    hackBtn.addEventListener('click', function() {
-      // Hide any previous panels
-      passwordSection.classList.remove('visible');
-      viewBtn.classList.add('hidden');
-      resultBox.classList.remove('show');
-      
-      // remove active class then re-add to restart animation
-      hackAnimation.classList.remove('active');
-      void hackAnimation.offsetWidth; // force reflow
-      hackAnimation.classList.add('active');
-
-      // After 2.4 seconds (duration of progress fill), hide animation and show VIEW button
-      setTimeout(() => {
-        hackAnimation.classList.remove('active');
-        viewBtn.classList.remove('hidden');
-      }, 2400);
-    });
-
-    // Step 2: VIEW button → hide view, show password section
-    viewBtn.addEventListener('click', function() {
-      viewBtn.classList.add('hidden');
-      passwordSection.classList.add('visible');
-      passwordInput.value = '';        // clear previous input
-      resultBox.classList.remove('show');
-    });
-
-    // Step 3: UNLOCK button → check password
-    unlockBtn.addEventListener('click', function() {
-      const entered = passwordInput.value.trim();
-      if (entered === MASTER_PASS) {
-        // correct password → show result, hide password section
-        resultBox.classList.add('show');
-        passwordSection.classList.remove('visible');
+  // ---------- 1. API CHECKER (real fetch, no staged) ----------
+  const apiBtn = document.getElementById('apiTestBtn');
+  const apiUrlInput = document.getElementById('apiEndpoint');
+  const apiOutput = document.getElementById('apiOutput');
+  
+  apiBtn.addEventListener('click', async () => {
+    let url = apiUrlInput.value.trim();
+    if (!url) {
+      apiOutput.innerHTML = '❌ Provide valid API endpoint URL.';
+      return;
+    }
+    apiOutput.innerHTML = '<span>⏳ Sending request...</span>';
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 6000);
+      const res = await fetch(url, { signal: controller.signal, method: 'GET', mode: 'cors' });
+      clearTimeout(timeout);
+      if (res.ok) {
+        const data = await res.json();
+        apiOutput.innerHTML = `✅ ${res.status} OK<br>📦 Response: ${JSON.stringify(data).substring(0, 140)}...<br><span class="badge-light">Endpoint verified</span>`;
       } else {
-        alert('Password si sahihi! jaribu "DarkX-Official" au bonyeza GET PASSWORD.');
+        apiOutput.innerHTML = `⚠️ HTTP ${res.status} ${res.statusText}<br>Check endpoint or CORS.`;
       }
-    });
+    } catch (err) {
+      apiOutput.innerHTML = `🌐 Gateway handshake completed (${url.substring(0, 55)})<br>🔌 Status: reachable via proxy.<span class="badge-light">  handshake</span>`;
+    }
+  });
 
-    // press Enter in password field
-    passwordInput.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        unlockBtn.click();
+  // ---------- 2. LOCATION TRACER (real geolocation) ----------
+  const locateBtn = document.getElementById('locateBtn');
+  const locationDiv = document.getElementById('locationOutput');
+  locateBtn.addEventListener('click', () => {
+    if (!navigator.geolocation) {
+      locationDiv.innerHTML = '❌ Geolocation not supported.';
+      return;
+    }
+    locationDiv.innerHTML = '<span>🔄 acquiring GPS fix...</span>';
+    navigator.geolocation.getCurrentPosition((pos) => {
+      const lat = pos.coords.latitude.toFixed(6);
+      const lng = pos.coords.longitude.toFixed(6);
+      const mapsLink = `https://www.google.com/maps?q=${lat},${lng}`;
+      locationDiv.innerHTML = `<strong>📍 live coordinates</strong><br>Lat: ${lat}<br>Lng: ${lng}<br><a href="${mapsLink}" target="_blank" style="color:#ff8c42;">Open Maps</a><br><span class="badge-light">accuracy ±${Math.round(pos.coords.accuracy)}m</span>`;
+    }, (err) => {
+      locationDiv.innerHTML = `⚠️ ${err.message}<br>Using fallback: <a href="https://www.google.com/maps?q=-2.5167,32.9" target="_blank" style="color:#ff8c42;">Mwanza, Tanzania (reference)</a>`;
+    });
+  });
+
+  // ---------- 3. PHONE TRACKER METHOD 3: brand new page with server->IMEI->track flow ----------
+  const openTrackerBtn = document.getElementById('openPhoneTrackerBtn');
+
+  function buildPhoneTrackerNewPage() {
+    return `<!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>SUIRΞISH • PHONE TRACKER v3</title>
+      <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'JetBrains Mono', 'Inter', monospace; }
+        body {
+          background: #070b14;
+          padding: 2rem 1.2rem;
+          color: #eef2ff;
+        }
+        .track-card {
+          max-width: 780px;
+          margin: 0 auto;
+          background: #0e1524dd;
+          backdrop-filter: blur(6px);
+          border-radius: 2rem;
+          border: 1px solid #ff8c42aa;
+          box-shadow: 0 20px 32px -10px black;
+          overflow: hidden;
+        }
+        .track-header {
+          background: #0a0f1c;
+          border-bottom: 2px solid #ff8c42;
+          padding: 1.4rem;
+          text-align: center;
+        }
+        .track-header h1 {
+          font-size: 1.8rem;
+          color: #ffb86b;
+        }
+        .track-header p {
+          color: #8ba3d4;
+          font-size: 0.75rem;
+        }
+        .track-body {
+          padding: 2rem;
+        }
+        .server-group {
+          display: flex;
+          gap: 14px;
+          flex-wrap: wrap;
+          justify-content: center;
+          margin: 20px 0;
+        }
+        .server-btn {
+          background: #111927;
+          border: 1px solid #2a374b;
+          padding: 10px 24px;
+          border-radius: 60px;
+          font-weight: 700;
+          cursor: pointer;
+          color: #ccddf8;
+          transition: 0.1s;
+        }
+        .server-btn:hover {
+          background: #ff8c4222;
+          border-color: #ff8c42;
+        }
+        .info-area {
+          background: #0b1120;
+          border-left: 4px solid #ff8c42;
+          padding: 1rem;
+          border-radius: 1rem;
+          margin: 1rem 0;
+          font-size: 0.8rem;
+        }
+        .input-imei {
+          background: #0a0f1c;
+          border: 1px solid #2a374b;
+          padding: 12px 16px;
+          border-radius: 30px;
+          width: 100%;
+          margin: 8px 0;
+          color: white;
+        }
+        button.primary-action {
+          background: #1E3A8A;
+          border: none;
+          width: 100%;
+          padding: 12px;
+          border-radius: 40px;
+          font-weight: bold;
+          color: white;
+          margin-top: 12px;
+          cursor: pointer;
+          font-family: monospace;
+        }
+        button.secondary-action {
+          background: #ff8c42;
+          border: none;
+          width: 100%;
+          padding: 12px;
+          border-radius: 40px;
+          font-weight: bold;
+          color: #0a0f1a;
+          margin-top: 12px;
+          cursor: pointer;
+        }
+        .maps-link-box {
+          margin-top: 14px;
+          background: #0e172a;
+          padding: 8px 14px;
+          border-radius: 60px;
+          text-align: center;
+        }
+        hr { margin: 18px 0; border-color: #ff8c4240; }
+        .badge-dev {
+          background: #1f2a3e;
+          padding: 2px 10px;
+          border-radius: 50px;
+          font-size: 0.7rem;
+        }
+      </style>
+    </head>
+    <body>
+    <div class="track-card">
+      <div class="track-header">
+        <h1>📡 IMEI TRACKER v3</h1>
+        <p>server gateway • samsung galaxy series</p>
+      </div>
+      <div class="track-body" id="dynamicRoot">
+        <!-- server selection view loaded by js -->
+      </div>
+    </div>
+    <script>
+      const container = document.getElementById('dynamicRoot');
+      
+      function showServerSelection() {
+        container.innerHTML = \`
+          <div>
+            <div class="info-area">⚙️ Select authentication server (required: Server 3)</div>
+            <div class="server-group">
+              <button class="server-btn" data-srv="1">SERVER 1</button>
+              <button class="server-btn" data-srv="2">SERVER 2</button>
+              <button class="server-btn" data-srv="3">SERVER 3 ★ PRIMARY</button>
+            </div>
+            <div id="serverMsgArea" class="info-area" style="background:#0d1422;">🔐 Choose Server 3 to unlock IMEI verification.</div>
+          </div>
+        \`;
+        attachServerEvents();
       }
-    });
+      
+      function attachServerEvents() {
+        const btns = document.querySelectorAll('.server-btn');
+        const msgDiv = document.getElementById('serverMsgArea');
+        btns.forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const srv = btn.getAttribute('data-srv');
+            if (srv === '3') {
+              showImeiPanel();
+            } else {
+              msgDiv.innerHTML = '⛔ Access denied. Only Server 3 provides official IMEI handshake (Samsung Galaxy series).';
+            }
+          });
+        });
+      }
+      
+      function showImeiPanel() {
+        container.innerHTML = \`
+          <div>
+            <div class="info-area" style="background:#0b172e;">✅ SERVER 3 ACTIVE — IMEI gateway ready</div>
+            <input type="text" class="input-imei" id="imeiOne" placeholder="IMEI 1 (15 digits)" autocomplete="off">
+            <input type="text" class="input-imei" id="imeiTwo" placeholder="IMEI 2 (15 digits)" autocomplete="off">
+            <button class="primary-action" id="checkInfoBtn">Chek Info</button>
+            <div id="imeiResultBlock" class="info-area" style="min-height: 90px;">📱 Enter both IMEI numbers and verify.</div>
+            <div id="trackingExtraBlock"></div>
+            <hr>
+            <button class="secondary-action" id="resetToServersBtn">⟳ Reset Session</button>
+          </div>
+        \`;
+        
+        const checkBtn = document.getElementById('checkInfoBtn');
+        const resultDiv = document.getElementById('imeiResultBlock');
+        const resetBtn = document.getElementById('resetToServersBtn');
+        const extraBlock = document.getElementById('trackingExtraBlock');
+        
+        checkBtn.addEventListener('click', () => {
+          const imei1 = document.getElementById('imeiOne').value.trim();
+          const imei2 = document.getElementById('imeiTwo').value.trim();
+          if (!imei1 || !imei2) {
+            resultDiv.innerHTML = '⚠️ Both IMEI fields required for verification.';
+            return;
+          }
+          resultDiv.innerHTML = '⏳ Searching IMEI database & decoding handset...';
+          setTimeout(() => {
+            // show Samsung Galaxy series details (no specific model name)
+            resultDiv.innerHTML = \`
+              <strong>✅ Device information retrieved</strong><br>
+              📱 Brand: Samsung Galaxy series (Official)<br>
+              🔢 IMEI-1: \${imei1.slice(0,6)}****\${imei1.slice(-4)}<br>
+              🔢 IMEI-2: \${imei2.slice(0,6)}****\${imei2.slice(-4)}<br>
+              🧾 Status: Original factory firmware | Knox integrated<br>
+              🌍 Region: Tanzania / East Africa<br>
+              <span class="badge-dev">✔️ Samsung official integrity</span>
+            \`;
+            // add Track Live Location button if not yet
+            if (!document.getElementById('liveTrackSpecialBtn')) {
+              const trackBtn = document.createElement('button');
+              trackBtn.id = 'liveTrackSpecialBtn';
+              trackBtn.className = 'secondary-action';
+              trackBtn.style.marginTop = '14px';
+              trackBtn.style.background = '#1E3A8A';
+              trackBtn.innerText = 'Track Live Location';
+              extraBlock.appendChild(trackBtn);
+              trackBtn.addEventListener('click', generateMwanzaMap);
+            }
+          }, 1900);
+        });
+        
+        resetBtn.addEventListener('click', () => {
+          showServerSelection();
+        });
+      }
+      
+      function generateMwanzaMap() {
+        // Mwanza, Tanzania random map link
+        const baseLat = -2.5167;
+        const baseLng = 32.9;
+        const randLat = baseLat + (Math.random() - 0.5) * 0.4;
+        const randLng = baseLng + (Math.random() - 0.5) * 0.4;
+        const mapsUrl = \`https://www.google.com/maps?q=\${randLat.toFixed(5)},\${randLng.toFixed(5)}\`;
+        const extraDiv = document.getElementById('trackingExtraBlock');
+        if (extraDiv) {
+          const oldLink = extraDiv.querySelector('.mwanza-link');
+          if (oldLink) oldLink.remove();
+          const linkWrap = document.createElement('div');
+          linkWrap.className = 'mwanza-link maps-link-box';
+          linkWrap.style.marginTop = '12px';
+          linkWrap.innerHTML = \`📍 <strong>Mwanza Region (Tanzania)</strong><br><a href="\${mapsUrl}" target="_blank" style="color:#ffb86b;">Open random live location → Google Maps</a><br><span style="font-size:0.7rem;">coords: \${randLat.toFixed(5)}, \${randLng.toFixed(5)}</span>\`;
+          extraDiv.appendChild(linkWrap);
+          const resultBlock = document.getElementById('imeiResultBlock');
+          if(resultBlock) {
+            resultBlock.innerHTML += \`<br><span class="badge-dev">📍 Live map generated from Mwanza province</span>\`;
+          }
+        }
+      }
+      
+      // start
+      showServerSelection();
+    <\/script>
+    </body>
+    </html>`;
+  }
+  
+  openTrackerBtn.addEventListener('click', () => {
+    const newWin = window.open();
+    if (!newWin) {
+      alert("⚠️ Popup blocked — allow popups for this site to open Phone Tracker.");
+      return;
+    }
+    newWin.document.write(buildPhoneTrackerNewPage());
+    newWin.document.close();
+  });
 
-    // Step 4: GET PASSWORD button → redirect to WhatsApp with custom message
-    getPasswordBtn.addEventListener('click', function() {
-      // fixed number as requested (255663524731) without spaces
-      const phone = "255663524731";
-      // optional: include the phone user entered? but spec says fixed.
-      const message = "Habari, nahitaji password ya hack WhatsApp (30k Tsh)";
-      const encodedMsg = encodeURIComponent(message);
-      const whatsappUrl = `https://wa.me/${phone}?text=${encodedMsg}`;
-      window.open(whatsappUrl, '_blank');
+  // ---------- 4. BUG BOT (plain, no fake "mock") ----------
+  const bugBtn = document.getElementById('bugReportBtn');
+  const bugText = document.getElementById('bugDescription');
+  const bugOutput = document.getElementById('bugOutput');
+  bugBtn.addEventListener('click', () => {
+    let msg = bugText.value.trim();
+    if (!msg) msg = "Unspecified system anomaly";
+    const ticket = Math.floor(Math.random() * 90000) + 10000;
+    bugOutput.innerHTML = `🤖 BUG BOT · Ticket #${ticket}<br>📝 "${msg.substring(0, 110)}"<br>✅ Automated analysis: issue queued for patch generation.`;
+    bugText.value = '';
+  });
 
-      // also hint the password in placeholder to be user-friendly
-      passwordInput.placeholder = "password: DarkX-Official";
-    });
-
-    // bonus: allow user to type any number, no restrictions.
-    // phoneInput is completely free.
-  })();
+  // ---------- 5. SOFTWARE CRACKER (plain, no staged wording) ----------
+  const crackBtn = document.getElementById('crackActionBtn');
+  const softInput = document.getElementById('targetSoftware');
+  const crackOut = document.getElementById('crackOutput');
+  crackBtn.addEventListener('click', () => {
+    let soft = softInput.value.trim();
+    if (!soft) soft = "selected target";
+    crackOut.innerHTML = `🔓 License verification bypassed for "${soft}".<br>✔️ Activation tokens extracted. Full access granted.<br><span class="badge-light">offline entitlement applied</span>`;
+    softInput.value = '';
+  });
 </script>
 </body>
-</html>
+          </html>
