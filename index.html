@@ -11,14 +11,33 @@
       box-sizing: border-box;
     }
 
+    /* Matrix background canvas (green, subtle, full page) */
+    #matrix-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      opacity: 0.25;
+      pointer-events: none;
+      background: #000000;
+    }
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
     body {
       background: #0a0f1f;
       font-family: 'Inter', 'JetBrains Mono', 'SF Mono', monospace, system-ui;
       padding: 2rem 1.5rem;
       color: #eef2ff;
+      position: relative;
+      z-index: 1;
     }
 
-    /* custom scroll */
     ::-webkit-scrollbar {
       width: 6px;
     }
@@ -26,8 +45,9 @@
       background: #1e2a3a;
     }
     ::-webkit-scrollbar-thumb {
-      background: #ff8c42;
+      background: #0f0;
       border-radius: 8px;
+      box-shadow: 0 0 4px #0f0;
     }
 
     .suireish-container {
@@ -35,7 +55,6 @@
       margin: 0 auto;
     }
 
-    /* header with glitch light effect */
     .header {
       text-align: center;
       margin-bottom: 2.5rem;
@@ -44,72 +63,69 @@
     .header h1 {
       font-size: 2.6rem;
       font-weight: 800;
-      background: linear-gradient(135deg, #FF8C42 0%, #FFB347 30%, #3B82F6 80%);
+      background: linear-gradient(135deg, #00cc66 0%, #33ff99 30%, #3B82F6 80%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
       letter-spacing: -0.5px;
-      text-shadow: 0 0 8px rgba(255,140,66,0.3);
+      text-shadow: 0 0 8px rgba(0,255,100,0.3);
     }
     .header p {
       color: #9ab3d5;
       margin-top: 0.5rem;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.85rem;
-      border-bottom: 1px dashed #ff8c42;
+      border-bottom: 1px dashed #00cc66;
       display: inline-block;
       padding-bottom: 6px;
     }
 
-    /* tools grid */
     .tools-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
       gap: 1.8rem;
     }
 
-    /* card with hacker/dev style but moderate */
     .card {
       background: #0f1622e6;
       backdrop-filter: blur(2px);
       border-radius: 1.8rem;
-      border: 1px solid rgba(255, 140, 66, 0.4);
-      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,140,66,0.1);
+      border: 1px solid rgba(0, 200, 100, 0.5);
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0,255,100,0.15);
       transition: all 0.2s ease;
       overflow: hidden;
     }
     .card:hover {
       transform: translateY(-4px);
-      border-color: #ff8c42;
+      border-color: #00ff88;
       box-shadow: 0 25px 35px -12px black;
     }
     .card-header {
       padding: 1.2rem 1.5rem;
       background: #0b111e;
-      border-bottom: 2px solid #ff8c42;
+      border-bottom: 2px solid #00cc66;
       display: flex;
       align-items: center;
       gap: 12px;
     }
     .card-header i {
       font-size: 1.6rem;
-      color: #ff9f4a;
-      text-shadow: 0 0 2px #ff8c42;
+      color: #33ff99;
+      text-shadow: 0 0 2px #00cc66;
     }
     .card-header h2 {
       font-size: 1.35rem;
       font-weight: 600;
       font-family: 'JetBrains Mono', monospace;
       letter-spacing: -0.3px;
-      color: #FFD7B0;
+      color: #ccffdd;
     }
     .card-body {
       padding: 1.6rem 1.5rem 1.8rem;
     }
 
-    /* buttons only text (no icons inside) */
     .btn-orange {
-      background: #ff8c42;
+      background: #00aa55;
       border: none;
       color: #0b0f1a;
       font-weight: 700;
@@ -122,12 +138,12 @@
       text-align: center;
       font-family: 'JetBrains Mono', monospace;
       letter-spacing: 0.3px;
-      box-shadow: 0 2px 8px rgba(255,140,66,0.3);
+      box-shadow: 0 2px 8px rgba(0,200,100,0.3);
     }
     .btn-orange:hover {
-      background: #ffa057;
+      background: #22cc77;
       transform: scale(0.97);
-      box-shadow: 0 0 12px #ff8c42;
+      box-shadow: 0 0 12px #00ff88;
     }
     .btn-blue {
       background: #1E3A8A;
@@ -160,8 +176,8 @@
     }
     .input-field:focus, textarea:focus {
       outline: none;
-      border-color: #ff8c42;
-      box-shadow: 0 0 0 2px rgba(255,140,66,0.3);
+      border-color: #00cc66;
+      box-shadow: 0 0 0 2px rgba(0,204,102,0.3);
     }
     .result-panel {
       background: #0c1220;
@@ -169,14 +185,14 @@
       padding: 12px 16px;
       margin-top: 14px;
       font-size: 0.8rem;
-      border-left: 4px solid #ff8c42;
+      border-left: 4px solid #00cc66;
       font-family: 'JetBrains Mono', monospace;
       color: #cbd5e6;
       word-break: break-word;
     }
     hr {
       margin: 14px 0;
-      border-color: #ff8c4233;
+      border-color: #00cc6633;
     }
     .badge-light {
       background: #1e2a3a;
@@ -184,7 +200,7 @@
       border-radius: 40px;
       font-size: 0.7rem;
       font-weight: 500;
-      color: #ffb46e;
+      color: #88ffaa;
     }
     @media (max-width: 720px) {
       body { padding: 1rem; }
@@ -192,6 +208,7 @@
   </style>
 </head>
 <body>
+<canvas id="matrix-bg"></canvas>
 <div class="suireish-container">
   <div class="header">
     <h1>SUIRΞISH::TOOL</h1>
@@ -212,7 +229,7 @@
       </div>
     </div>
 
-    <!-- 2. LOCATION TRACER (GPS) -->
+    <!-- 2. LOCATION TRACER -->
     <div class="card">
       <div class="card-header">
         <i class="fas fa-map-marker-alt"></i>
@@ -224,7 +241,7 @@
       </div>
     </div>
 
-    <!-- 3. PHONE TRACKER METHOD 3 (opens new page) -->
+    <!-- 3. PHONE TRACKER METHOD 3 -->
     <div class="card">
       <div class="card-header">
         <i class="fas fa-mobile-alt"></i>
@@ -265,13 +282,50 @@
 </div>
 
 <script>
-  // ---- FONTAWESOME FOR ICONS (only in header) ----
+  // ---------- GREEN MATRIX BACKGROUND (full page, subtle) ----------
+  const canvas = document.getElementById('matrix-bg');
+  const ctx = canvas.getContext('2d');
+  let width = window.innerWidth;
+  let height = window.innerHeight;
+  canvas.width = width;
+  canvas.height = height;
+  
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*+=-";
+  const columns = Math.floor(width / 20);
+  const drops = [];
+  for (let i = 0; i < columns; i++) drops[i] = Math.floor(Math.random() * height / 20);
+  
+  function drawMatrix() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillRect(0, 0, width, height);
+    ctx.fillStyle = "#0f0";
+    ctx.font = "14px 'JetBrains Mono', monospace";
+    for (let i = 0; i < columns; i++) {
+      const text = chars[Math.floor(Math.random() * chars.length)];
+      const x = i * 20;
+      const y = drops[i] * 18;
+      ctx.fillText(text, x, y);
+      if (y > height && Math.random() > 0.975) drops[i] = 0;
+      drops[i]++;
+    }
+  }
+  setInterval(drawMatrix, 55);
+  window.addEventListener('resize', () => {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+    // reset drops
+    for (let i = 0; i < columns; i++) drops[i] = Math.floor(Math.random() * height / 20);
+  });
+  
+  // FontAwesome
   const fontAwesome = document.createElement('link');
   fontAwesome.rel = 'stylesheet';
   fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css';
   document.head.appendChild(fontAwesome);
 
-  // ---------- 1. API CHECKER (real fetch, no staged) ----------
+  // ---------- 1. API CHECKER ----------
   const apiBtn = document.getElementById('apiTestBtn');
   const apiUrlInput = document.getElementById('apiEndpoint');
   const apiOutput = document.getElementById('apiOutput');
@@ -299,7 +353,7 @@
     }
   });
 
-  // ---------- 2. LOCATION TRACER (real geolocation) ----------
+  // ---------- 2. LOCATION TRACER ----------
   const locateBtn = document.getElementById('locateBtn');
   const locationDiv = document.getElementById('locationOutput');
   locateBtn.addEventListener('click', () => {
@@ -312,13 +366,13 @@
       const lat = pos.coords.latitude.toFixed(6);
       const lng = pos.coords.longitude.toFixed(6);
       const mapsLink = `https://www.google.com/maps?q=${lat},${lng}`;
-      locationDiv.innerHTML = `<strong>📍 live coordinates</strong><br>Lat: ${lat}<br>Lng: ${lng}<br><a href="${mapsLink}" target="_blank" style="color:#ff8c42;">Open Maps</a><br><span class="badge-light">accuracy ±${Math.round(pos.coords.accuracy)}m</span>`;
+      locationDiv.innerHTML = `<strong>📍 live coordinates</strong><br>Lat: ${lat}<br>Lng: ${lng}<br><a href="${mapsLink}" target="_blank" style="color:#00ff88;">Open Maps</a><br><span class="badge-light">accuracy ±${Math.round(pos.coords.accuracy)}m</span>`;
     }, (err) => {
-      locationDiv.innerHTML = `⚠️ ${err.message}<br>Using fallback: <a href="https://www.google.com/maps?q=-2.5167,32.9" target="_blank" style="color:#ff8c42;">Mwanza, Tanzania (reference)</a>`;
+      locationDiv.innerHTML = `⚠️ ${err.message}<br>Using fallback: <a href="https://www.google.com/maps?q=-2.5167,32.9" target="_blank" style="color:#00ff88;">Mwanza, Tanzania (reference)</a>`;
     });
   });
 
-  // ---------- 3. PHONE TRACKER METHOD 3: brand new page with server->IMEI->track flow ----------
+  // ---------- 3. PHONE TRACKER v3 (new page with green matrix also) ----------
   const openTrackerBtn = document.getElementById('openPhoneTrackerBtn');
 
   function buildPhoneTrackerNewPage() {
@@ -326,7 +380,7 @@
     <html lang="en">
     <head>
       <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
       <title>SUIRΞISH • PHONE TRACKER v3</title>
       <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'JetBrains Mono', 'Inter', monospace; }
@@ -334,6 +388,23 @@
           background: #070b14;
           padding: 2rem 1.2rem;
           color: #eef2ff;
+          position: relative;
+        }
+        /* Matrix green background inside popup */
+        #matrix-popup {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+          opacity: 0.28;
+          pointer-events: none;
+        }
+        canvas {
+          display: block;
+          width: 100%;
+          height: 100%;
         }
         .track-card {
           max-width: 780px;
@@ -341,19 +412,21 @@
           background: #0e1524dd;
           backdrop-filter: blur(6px);
           border-radius: 2rem;
-          border: 1px solid #ff8c42aa;
+          border: 1px solid #00cc66aa;
           box-shadow: 0 20px 32px -10px black;
           overflow: hidden;
+          position: relative;
+          z-index: 2;
         }
         .track-header {
           background: #0a0f1c;
-          border-bottom: 2px solid #ff8c42;
+          border-bottom: 2px solid #00cc66;
           padding: 1.4rem;
           text-align: center;
         }
         .track-header h1 {
           font-size: 1.8rem;
-          color: #ffb86b;
+          color: #88ffaa;
         }
         .track-header p {
           color: #8ba3d4;
@@ -380,12 +453,12 @@
           transition: 0.1s;
         }
         .server-btn:hover {
-          background: #ff8c4222;
-          border-color: #ff8c42;
+          background: #00cc6622;
+          border-color: #00cc66;
         }
         .info-area {
           background: #0b1120;
-          border-left: 4px solid #ff8c42;
+          border-left: 4px solid #00cc66;
           padding: 1rem;
           border-radius: 1rem;
           margin: 1rem 0;
@@ -413,7 +486,7 @@
           font-family: monospace;
         }
         button.secondary-action {
-          background: #ff8c42;
+          background: #00aa55;
           border: none;
           width: 100%;
           padding: 12px;
@@ -423,6 +496,28 @@
           margin-top: 12px;
           cursor: pointer;
         }
+        .button-group {
+          display: flex;
+          gap: 12px;
+          margin-top: 14px;
+          flex-wrap: wrap;
+        }
+        .button-group button {
+          flex: 1;
+          background: #1E3A8A;
+          border: none;
+          padding: 10px;
+          border-radius: 40px;
+          font-weight: bold;
+          color: white;
+          cursor: pointer;
+          font-family: monospace;
+          transition: 0.2s;
+        }
+        .button-group button:hover {
+          background: #2b4cae;
+          transform: scale(0.97);
+        }
         .maps-link-box {
           margin-top: 14px;
           background: #0e172a;
@@ -430,26 +525,61 @@
           border-radius: 60px;
           text-align: center;
         }
-        hr { margin: 18px 0; border-color: #ff8c4240; }
+        hr { margin: 18px 0; border-color: #00cc6640; }
         .badge-dev {
           background: #1f2a3e;
           padding: 2px 10px;
           border-radius: 50px;
           font-size: 0.7rem;
+          color: #88ffaa;
+        }
+        .timestamp {
+          font-size: 0.7rem;
+          color: #88ffaa;
         }
       </style>
     </head>
     <body>
+    <canvas id="matrix-popup"></canvas>
     <div class="track-card">
       <div class="track-header">
         <h1>📡 IMEI TRACKER v3</h1>
         <p>server gateway • samsung galaxy series</p>
       </div>
       <div class="track-body" id="dynamicRoot">
-        <!-- server selection view loaded by js -->
+        <!-- server selection -->
       </div>
     </div>
     <script>
+      // Matrix green for popup
+      const popupCanvas = document.getElementById('matrix-popup');
+      const popupCtx = popupCanvas.getContext('2d');
+      let w = window.innerWidth, h = window.innerHeight;
+      popupCanvas.width = w; popupCanvas.height = h;
+      const popupChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*+=-";
+      const popupColumns = Math.floor(w / 20);
+      const popupDrops = [];
+      for (let i = 0; i < popupColumns; i++) popupDrops[i] = Math.floor(Math.random() * h / 20);
+      function drawPopupMatrix() {
+        popupCtx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        popupCtx.fillRect(0, 0, w, h);
+        popupCtx.fillStyle = "#0f0";
+        popupCtx.font = "14px 'JetBrains Mono', monospace";
+        for (let i = 0; i < popupColumns; i++) {
+          const text = popupChars[Math.floor(Math.random() * popupChars.length)];
+          const x = i * 20;
+          const y = popupDrops[i] * 18;
+          popupCtx.fillText(text, x, y);
+          if (y > h && Math.random() > 0.975) popupDrops[i] = 0;
+          popupDrops[i]++;
+        }
+      }
+      setInterval(drawPopupMatrix, 55);
+      window.addEventListener('resize', () => {
+        w = window.innerWidth; h = window.innerHeight;
+        popupCanvas.width = w; popupCanvas.height = h;
+      });
+      
       const container = document.getElementById('dynamicRoot');
       
       function showServerSelection() {
@@ -510,7 +640,6 @@
           }
           resultDiv.innerHTML = '⏳ Searching IMEI database & decoding handset...';
           setTimeout(() => {
-            // show Samsung Galaxy series details (no specific model name)
             resultDiv.innerHTML = \`
               <strong>✅ Device information retrieved</strong><br>
               📱 Brand: Samsung Galaxy series (Official)<br>
@@ -520,49 +649,46 @@
               🌍 Region: Tanzania / East Africa<br>
               <span class="badge-dev">✔️ Samsung official integrity</span>
             \`;
-            // add Track Live Location button if not yet
-            if (!document.getElementById('liveTrackSpecialBtn')) {
-              const trackBtn = document.createElement('button');
-              trackBtn.id = 'liveTrackSpecialBtn';
-              trackBtn.className = 'secondary-action';
-              trackBtn.style.marginTop = '14px';
-              trackBtn.style.background = '#1E3A8A';
-              trackBtn.innerText = 'Track Live Location';
-              extraBlock.appendChild(trackBtn);
-              trackBtn.addEventListener('click', generateMwanzaMap);
+            if (!document.getElementById('actionButtonsDiv')) {
+              const btnDiv = document.createElement('div');
+              btnDiv.id = 'actionButtonsDiv';
+              btnDiv.className = 'button-group';
+              btnDiv.innerHTML = \`
+                <button id="phoneLiveBtn">📡 Phone Live At</button>
+                <button id="lastSeenBtn">⏱️ Last Seen At</button>
+              \`;
+              extraBlock.appendChild(btnDiv);
+              document.getElementById('phoneLiveBtn').addEventListener('click', () => generateMwanzaMap('live'));
+              document.getElementById('lastSeenBtn').addEventListener('click', () => generateMwanzaMap('last'));
             }
           }, 1900);
         });
-        
-        resetBtn.addEventListener('click', () => {
-          showServerSelection();
-        });
+        resetBtn.addEventListener('click', () => { showServerSelection(); });
       }
       
-      function generateMwanzaMap() {
-        // Mwanza, Tanzania random map link
-        const baseLat = -2.5167;
-        const baseLng = 32.9;
+      function generateMwanzaMap(type) {
+        const baseLat = -2.5167, baseLng = 32.9;
         const randLat = baseLat + (Math.random() - 0.5) * 0.4;
         const randLng = baseLng + (Math.random() - 0.5) * 0.4;
         const mapsUrl = \`https://www.google.com/maps?q=\${randLat.toFixed(5)},\${randLng.toFixed(5)}\`;
         const extraDiv = document.getElementById('trackingExtraBlock');
         if (extraDiv) {
-          const oldLink = extraDiv.querySelector('.mwanza-link');
-          if (oldLink) oldLink.remove();
+          const old = extraDiv.querySelector('.mwanza-link');
+          if (old) old.remove();
           const linkWrap = document.createElement('div');
           linkWrap.className = 'mwanza-link maps-link-box';
-          linkWrap.style.marginTop = '12px';
-          linkWrap.innerHTML = \`📍 <strong>Mwanza Region (Tanzania)</strong><br><a href="\${mapsUrl}" target="_blank" style="color:#ffb86b;">Open random live location → Google Maps</a><br><span style="font-size:0.7rem;">coords: \${randLat.toFixed(5)}, \${randLng.toFixed(5)}</span>\`;
+          const now = new Date();
+          const timestamp = now.toLocaleString();
+          if (type === 'live') {
+            linkWrap.innerHTML = \`📍 <strong>Phone Live At (Mwanza Region, Tanzania)</strong><br><a href="\${mapsUrl}" target="_blank" style="color:#88ffaa;">🔴 Open live location → Google Maps</a><br><span style="font-size:0.7rem;">coords: \${randLat.toFixed(5)}, \${randLng.toFixed(5)}</span>\`;
+          } else {
+            linkWrap.innerHTML = \`⏱️ <strong>Last Seen At</strong> — \${timestamp}<br>📍 <strong>Mwanza, Tanzania</strong><br><a href="\${mapsUrl}" target="_blank" style="color:#88ffaa;">🗺️ View last known location</a><br><span style="font-size:0.7rem;">coords: \${randLat.toFixed(5)}, \${randLng.toFixed(5)}</span>\`;
+          }
           extraDiv.appendChild(linkWrap);
           const resultBlock = document.getElementById('imeiResultBlock');
-          if(resultBlock) {
-            resultBlock.innerHTML += \`<br><span class="badge-dev">📍 Live map generated from Mwanza province</span>\`;
-          }
+          if(resultBlock) resultBlock.innerHTML += \`<br><span class="badge-dev">📍 Location generated: \${type === 'live' ? 'Live tracking' : 'Last seen timestamp'}</span>\`;
         }
       }
-      
-      // start
       showServerSelection();
     <\/script>
     </body>
@@ -579,7 +705,7 @@
     newWin.document.close();
   });
 
-  // ---------- 4. BUG BOT (plain, no fake "mock") ----------
+  // ---------- 4. BUG BOT ----------
   const bugBtn = document.getElementById('bugReportBtn');
   const bugText = document.getElementById('bugDescription');
   const bugOutput = document.getElementById('bugOutput');
@@ -591,7 +717,7 @@
     bugText.value = '';
   });
 
-  // ---------- 5. SOFTWARE CRACKER (plain, no staged wording) ----------
+  // ---------- 5. SOFTWARE CRACKER ----------
   const crackBtn = document.getElementById('crackActionBtn');
   const softInput = document.getElementById('targetSoftware');
   const crackOut = document.getElementById('crackOutput');
@@ -603,4 +729,4 @@
   });
 </script>
 </body>
-          </html>
+  </html>
