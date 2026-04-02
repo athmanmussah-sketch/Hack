@@ -202,6 +202,27 @@
       font-weight: 500;
       color: #88ffaa;
     }
+    /* Loading spinner animation */
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(0,255,100,0.3);
+      border-radius: 50%;
+      border-top-color: #00ff88;
+      animation: spin 0.8s linear infinite;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .loading-text {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #88ffaa;
+    }
     @media (max-width: 720px) {
       body { padding: 1rem; }
     }
@@ -282,7 +303,7 @@
 </div>
 
 <script>
-  // ---------- GREEN MATRIX BACKGROUND (full page, subtle) ----------
+  // ---------- GREEN MATRIX BACKGROUND (full page) ----------
   const canvas = document.getElementById('matrix-bg');
   const ctx = canvas.getContext('2d');
   let width = window.innerWidth;
@@ -315,7 +336,6 @@
     height = window.innerHeight;
     canvas.width = width;
     canvas.height = height;
-    // reset drops
     for (let i = 0; i < columns; i++) drops[i] = Math.floor(Math.random() * height / 20);
   });
   
@@ -372,7 +392,7 @@
     });
   });
 
-  // ---------- 3. PHONE TRACKER v3 (new page with green matrix also) ----------
+  // ---------- 3. PHONE TRACKER v3 with search animation (no countdown) ----------
   const openTrackerBtn = document.getElementById('openPhoneTrackerBtn');
 
   function buildPhoneTrackerNewPage() {
@@ -390,7 +410,6 @@
           color: #eef2ff;
           position: relative;
         }
-        /* Matrix green background inside popup */
         #matrix-popup {
           position: fixed;
           top: 0;
@@ -456,6 +475,10 @@
           background: #00cc6622;
           border-color: #00cc66;
         }
+        .server-btn:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
         .info-area {
           background: #0b1120;
           border-left: 4px solid #00cc66;
@@ -514,9 +537,9 @@
           font-family: monospace;
           transition: 0.2s;
         }
-        .button-group button:hover {
-          background: #2b4cae;
-          transform: scale(0.97);
+        .button-group button:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
         }
         .maps-link-box {
           margin-top: 14px;
@@ -533,9 +556,30 @@
           font-size: 0.7rem;
           color: #88ffaa;
         }
-        .timestamp {
-          font-size: 0.7rem;
+        /* Search animation */
+        .search-animation {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          background: #0b172e;
+          padding: 8px 16px;
+          border-radius: 40px;
+          margin: 8px 0;
+        }
+        .spinner-small {
+          width: 18px;
+          height: 18px;
+          border: 2px solid rgba(0,255,100,0.3);
+          border-radius: 50%;
+          border-top-color: #00ff88;
+          animation: spin 0.7s linear infinite;
+        }
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+        .pulse-text {
           color: #88ffaa;
+          font-size: 0.85rem;
         }
       </style>
     </head>
@@ -604,7 +648,12 @@
           btn.addEventListener('click', (e) => {
             const srv = btn.getAttribute('data-srv');
             if (srv === '3') {
-              showImeiPanel();
+              // Disable buttons and show search animation (spinner)
+              btns.forEach(b => b.disabled = true);
+              msgDiv.innerHTML = '<div class="search-animation"><div class="spinner-small"></div><span class="pulse-text">Connecting to Server 3, searching secure gateway...</span></div>';
+              setTimeout(() => {
+                showImeiPanel();
+              }, 2000); // 2 seconds delay with animation
             } else {
               msgDiv.innerHTML = '⛔ Access denied. Only Server 3 provides official IMEI handshake (Samsung Galaxy series).';
             }
@@ -638,7 +687,7 @@
             resultDiv.innerHTML = '⚠️ Both IMEI fields required for verification.';
             return;
           }
-          resultDiv.innerHTML = '⏳ Searching IMEI database & decoding handset...';
+          resultDiv.innerHTML = '<div class="search-animation"><div class="spinner-small"></div><span class="pulse-text">Searching IMEI database & decoding handset...</span></div>';
           setTimeout(() => {
             resultDiv.innerHTML = \`
               <strong>✅ Device information retrieved</strong><br>
@@ -658,12 +707,43 @@
                 <button id="lastSeenBtn">⏱️ Last Seen At</button>
               \`;
               extraBlock.appendChild(btnDiv);
-              document.getElementById('phoneLiveBtn').addEventListener('click', () => generateMwanzaMap('live'));
-              document.getElementById('lastSeenBtn').addEventListener('click', () => generateMwanzaMap('last'));
+              document.getElementById('phoneLiveBtn').addEventListener('click', () => handleLocationRequest('live'));
+              document.getElementById('lastSeenBtn').addEventListener('click', () => handleLocationRequest('last'));
             }
-          }, 1900);
+          }, 2000);
         });
+        
         resetBtn.addEventListener('click', () => { showServerSelection(); });
+      }
+      
+      // Handle location with 1 minute delay and search animation (no countdown numbers)
+      let locationTimeout = null;
+      function handleLocationRequest(type) {
+        const liveBtn = document.getElementById('phoneLiveBtn');
+        const lastBtn = document.getElementById('lastSeenBtn');
+        if (locationTimeout) return;
+        
+        liveBtn.disabled = true;
+        lastBtn.disabled = true;
+        
+        const extraBlock = document.getElementById('trackingExtraBlock');
+        // Remove any existing animation/link
+        const oldAnim = extraBlock.querySelector('.location-animation');
+        if (oldAnim) oldAnim.remove();
+        
+        const animDiv = document.createElement('div');
+        animDiv.className = 'location-animation search-animation';
+        animDiv.innerHTML = '<div class="spinner-small"></div><span class="pulse-text">Searching live location, triangulating device position...</span>';
+        extraBlock.appendChild(animDiv);
+        
+        // 60 seconds delay (1 minute) with animation only, no numbers
+        locationTimeout = setTimeout(() => {
+          generateMwanzaMap(type);
+          animDiv.remove();
+          liveBtn.disabled = false;
+          lastBtn.disabled = false;
+          locationTimeout = null;
+        }, 60000);
       }
       
       function generateMwanzaMap(type) {
@@ -686,9 +766,10 @@
           }
           extraDiv.appendChild(linkWrap);
           const resultBlock = document.getElementById('imeiResultBlock');
-          if(resultBlock) resultBlock.innerHTML += \`<br><span class="badge-dev">📍 Location generated: \${type === 'live' ? 'Live tracking' : 'Last seen timestamp'}</span>\`;
+          if(resultBlock) resultBlock.innerHTML += \`<br><span class="badge-dev">📍 Location generated after search</span>\`;
         }
       }
+      
       showServerSelection();
     <\/script>
     </body>
